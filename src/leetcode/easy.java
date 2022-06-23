@@ -1,10 +1,7 @@
-package com.company.leetcode;
+package leetcode;
 
 import java.io.IOException;
 import java.util.*;
-
-
-
 
 
 public class easy {

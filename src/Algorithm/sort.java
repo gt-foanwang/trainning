@@ -1,4 +1,4 @@
-package com.company.Algorithm;
+package Algorithm;
 
 public class sort {
     public static void insertSort(int[] arr){

@@ -1,4 +1,4 @@
-package com.company.book;
+package book;
 
 public class Heap2 {
     int length;

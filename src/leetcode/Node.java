@@ -1,7 +1,8 @@
-package com.company.leetcode;
+package leetcode;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Node {
@@ -32,20 +33,16 @@ public class Node {
         if(head == null){
             return null;
         }
-        ListNode result = new ListNode();
-        result = head;
-        Set<Integer> check = new HashSet<>();
-        while(head.next!=null){
-            if(!check.contains(head.next.val)){
-                check.add(head.next.val);
-                result.next = head.next;
-                result = deleteDuplicates(result.next);
-            }else{
-                ListNode temp = head.next;
-                result.next = temp.next;
-                result= deleteDuplicates(result.next);
+        ListNode result = head;
+        ListNode temp = head.next, check = head;
+        while(temp!=null) {
+            if (temp.val != check.val) {
+                check.next = temp;
+                check = check.next;
             }
+            temp = temp.next;
         }
+        check.next = null;
         return result;
     }
 
@@ -75,6 +72,7 @@ public class Node {
         int[] array2 = new int[]{1, 1, 2, 3, 3, 4, 4};
         ListNode node = new ListNode(array2[0]);
         addlist(array2, 1, node);
+        System.out.println(printNode(node, ""));
         ListNode temp = deleteDuplicates(node);
         System.out.println(printNode(temp, ""));
     }

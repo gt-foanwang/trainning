@@ -1,9 +1,7 @@
-package com.company.book;
+package book;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class NodeFunction {
     public boolean DeleteNode(Node node){

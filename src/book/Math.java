@@ -1,4 +1,4 @@
-package com.company.book;
+package book;
 
 import java.util.ArrayList;
 import java.util.List;

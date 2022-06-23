@@ -1,4 +1,4 @@
-package com.company.book;
+package book;
 
 public class Testing {
     static{System.out.println("1");}

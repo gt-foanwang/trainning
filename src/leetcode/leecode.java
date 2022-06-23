@@ -240,6 +240,20 @@ public class leecode {
     	result.delete(result.length()-1, result.length());
     	return result.toString();
     }
+
+	public class DataStructure {
+		public boolean containsDuplicate(int[] nums) {
+			Set<Integer> test = new HashSet<Integer>();
+			for(int i =0;i< nums.length;i++){
+				if(test.contains(nums[i])){
+					return true;
+				}else{
+					test.add(nums[i]);
+				}
+			}
+			return false;
+		}
+	}
     
     public int[] numberOfLines(int[] widths, String S) {
     	int[] reply = new int[widths.length];

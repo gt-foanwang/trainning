@@ -1,4 +1,4 @@
-package com.company.leetcode;
+package leetcode;
 
 public class Binary {
     public int search(int[] nums, int target) {
