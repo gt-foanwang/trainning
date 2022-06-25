@@ -1,9 +1,8 @@
 package leetcode;
 
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Node {
 
@@ -67,13 +66,88 @@ public class Node {
         return result;
     }
 
+
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+    public static TreeNode getTreeNode(Integer[] array){
+        TreeNode root = new TreeNode(array[0]);
+        int i =0;
+        int left = i * 2 + 1;
+        int right = i * 2 + 2;
+        while(left <= array.length-1) {
+            if (array[left] != null) {
+                TreeNode leftNode = new TreeNode(array[left]);
+                System.out.println("left:"+array[left]);
+                root.left = leftNode;
+            }
+            if (right < array.length) {
+                if (array[right] != null) {
+                    TreeNode rightNode = new TreeNode(array[right]);
+                    System.out.println("right:"+array[right]);
+                    root.left = rightNode;
+                }
+            }
+            i++;
+            left = i * 2 + 1;
+            right = i * 2 + 2;
+        }
+        return root;
+    }
+
+
+
+    public static List<Integer> inorderTraversal(TreeNode root){
+        if(root==null){
+            return null;
+        }
+        List<Integer> result = new ArrayList<Integer>();
+        result.add(root.val);
+        if(root.left !=null){
+            inorderTraversal(root.left);
+        }
+        if(root.right !=null){
+            inorderTraversal(root.right);
+        }
+        return result;
+    }
+
+    public static boolean isSameTree(TreeNode p, TreeNode q) {
+        if(p==null && q== null){
+            return true;
+        }
+        if(p==null && q!=null){
+            return false;
+        }
+        if(p!=null && q==null){
+            return false;
+        }
+        if(p.val!= q.val){
+            return false;
+        }
+        isSameTree(p.left, q.left);
+        isSameTree(p.right, q.right);
+        return true;
+    }
+
+
+
     public static void main(String[] args) throws IOException {
-        int[] array1 = new int[]{9};
-        int[] array2 = new int[]{1, 1, 2, 3, 3, 4, 4};
-        ListNode node = new ListNode(array2[0]);
-        addlist(array2, 1, node);
-        System.out.println(printNode(node, ""));
-        ListNode temp = deleteDuplicates(node);
-        System.out.println(printNode(temp, ""));
+        Integer[] array = new Integer[]{1, 2, 3};
+        TreeNode root = getTreeNode(array);
+        List<Integer> result = inorderTraversal(root);
+        for(Integer i :result){
+            System.out.print(i+ "");
+        }
+
     }
 }

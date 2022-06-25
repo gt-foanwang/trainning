@@ -351,22 +351,52 @@ public class easy {
         }
         return (int)start-1;
     }
-
-
-
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+        int index = n+m-1;
+        int i = m-1;
+        int j = n-1;
+        while(i>=0&&j>=0)
+        {
+            if(nums2[j]>nums1[i])
+            {
+                nums1[index] = nums2[j];
+                index--;
+                j--;
+            }
+            else{
+                nums1[index] = nums1[i];
+                index--;
+                i--;
+            }
+        }
+        while(j>=0)
+        {
+            nums1[index] = nums2[j];
+            index--;
+            j--;
+        }
+        while(i>=0)
+        {
+            nums1[index] = nums1[i];
+            index--;
+            i--;
+        }
+//        for(int  k =0;i <m+n;k++){
+//            System.out.print(nums1[k]+" ");
+//        }
+    }
 
     public static void print(int[] arr){
         for(int i=0;i<arr.length;i++){
             System.out.print(arr[i]+" ");
         }
-
     }
 
     public static void main(String[] args) throws IOException {
         String[] strs = new String[]{"abc","aca"};
-        int[] array1 = new int[]{9};
-        int[] array2 = new int[]{9,9,9,9,9};
+        int[] array1 = new int[]{2,0};
+        int[] array2 = new int[]{1};
 //        ListNode list1 = new ListNode(array1[0]);
-        System.out.println(mySqrt(2147395599));
+        merge(array1, 1, array2, 1);
     }
 }
