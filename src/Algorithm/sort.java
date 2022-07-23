@@ -1,6 +1,13 @@
 package Algorithm;
 
 public class sort {
+
+    public static void QuickSort(int[] arr){
+        int pivot = arr.length/2;
+    }
+
+
+
     public static void insertSort(int[] arr){
         for(int i = 1 ;i< arr.length; i++){
             int key = arr[i];
