@@ -1,5 +1,7 @@
 package leetcode;
 
+import sun.security.util.DerEncoder;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -141,11 +143,6 @@ public class easy {
         return true;
     }
 
-
-
-
-
-
     public int removeDuplicates(int[] nums) {
         Set<Integer> set = new HashSet<Integer>();
         for(int i =0; i < nums.length;i++){
@@ -153,12 +150,75 @@ public class easy {
         }
         return set.size();
     }
-    public int removeElement(int[] nums, int val) {
-        Set<Integer> set = new HashSet<Integer>();
-        for(int i =0; i < nums.length;i++){
 
+    public int removeElement(int[] nums, int val) {
+        int size = nums.length;
+        int repeat = 0;
+        for(int i = 0; i < size; i++){
+            if(nums[i] != val){
+                nums[repeat] = nums[i];
+                repeat+=1;
+            }
         }
-        return -1;
+        return size-repeat;
+    }
+
+    public int searchInsert(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length;
+        while(left < right) {
+            int pivot = (left + right) / 2;
+            if (nums[pivot] == target) {
+                return pivot;
+            } else if (nums[pivot] > target) {
+                left = pivot;
+            } else {
+                right = pivot;
+            }
+        }
+        return right;
+    }
+
+    public int lengthOfLastWord(String s) {
+        int count = 0;
+        char[] arr = s.toCharArray();
+        int len = arr.length;
+        for(int i = len-1 ; i>=0 ; i--){
+            if(arr[i]!=' '){
+                count +=1;
+            }else {
+                if(count>0) {
+                    return count;
+                }
+            }
+        }
+        return count;
+    }
+
+    public int[] plusOne(int[] digits) {
+        int len = digits.length;
+        int flag = 0;
+        for(int i = len-1; i >=0 ; i--){
+            int total = digits[i]+flag;
+            if(i == len-1){
+                total+=1;
+            }
+            int newNumber = total%10;
+            flag = total/10;
+            digits[i] = newNumber;
+        }
+        if(flag ==1){
+            int[] result = new int[len+1];
+            result[0] = 1;
+            for(int i = 1; i <= len; i++){
+                result[i] = digits[i-1];
+            }
+            for(int i = 0; i< result.length ;i++){
+                System.out.println("result i:"+result[i]);
+            }
+            return result;
+        }
+        return digits;
     }
 
     public static boolean checkCommon(String compare,Integer size, String[] strs){
@@ -184,28 +244,7 @@ public class easy {
         return -1;
     }
 
-    public int searchInsert(int[] nums, int target){
-        int start = 0;
-        int end = nums.length-1;
-        while(start<=end){
-            int mid = start+(end-start)/2;
-            if(target==nums[mid]){
-                return mid;
-            }
-            if(target>nums[mid]){
-                start = mid+1;
-            }else{
-                end = mid-1;
-            }
-            mid = start+(end-start)/2;
-        }
-        if(start<=end){
-            return start-1;
-        }else{
-            return end+1;
-        }
 
-    }
 
     public int maxSubArray(int[] nums) {
         if(nums.length==1){
@@ -218,46 +257,31 @@ public class easy {
         return result;
     }
 
-    public static int lengthOfLastWord(String s) {
-        char[] temp = s.toCharArray();
-        int len = s.length();
-        int result =0;
-        for(int i =len-1; i >=0; i--) {
-            if (temp[i] != ' ') {
-                    result += 1;
-            }else{
-                if(result!=0){
-                    break;
-                }
-            }
-        }
-        return result;
-    }
 
-    public static int[] plusOne(int[] digits) {
-        int len = digits.length;
-        boolean flag = true;
-        for(int i =len-1; i >= 0; i--){
-            int total = digits[i];
-            if(flag){
-                total =digits[i]+1;
-            }
-            if(total/10!=1){
-                flag = false;
-            }
-            digits[i] = total%10;
-        }
-        if(flag == true){
-            int[] sol= new int[digits.length+1];
-            for(int i =0; i<sol.length;i++){
-                System.out.print(sol[i]+" ");
-            }
-            sol[0]=1;
-            return sol;
-        }else{
-            return digits;
-        }
-    }
+//    public static int[] plusOne(int[] digits) {
+//        int len = digits.length;
+//        boolean flag = true;
+//        for(int i =len-1; i >= 0; i--){
+//            int total = digits[i];
+//            if(flag){
+//                total =digits[i]+1;
+//            }
+//            if(total/10!=1){
+//                flag = false;
+//            }
+//            digits[i] = total%10;
+//        }
+//        if(flag == true){
+//            int[] sol= new int[digits.length+1];
+//            for(int i =0; i<sol.length;i++){
+//                System.out.print(sol[i]+" ");
+//            }
+//            sol[0]=1;
+//            return sol;
+//        }else{
+//            return digits;
+//        }
+//    }
 
 
     public static String addBinary(String a, String b) {

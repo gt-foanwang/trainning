@@ -1,19 +1,25 @@
 package leetcode;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-public class LinkedinList {
+public class ListFunction {
 
-    public static class ListNode {
-          int val;
-          ListNode next;
-          ListNode() {}
-          ListNode(int val) { this.val = val; }
-          ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-    }
+//    public ListNode addNode(ListNode node, int val){
+//        if(node==null){
+//            node = new ListNode(val);
+//            return node;
+//        }
+//        ListNode head = node;
+//        if(node.next == null){
+//            node.next = new ListNode(val);
+//        }else{
+//            addNode(node.next,val);
+//        }
+//        return head;
+//    }
+
 
     public int getDecimalValue(ListNode head) {
         Stack<Integer> vals = new Stack<Integer>();
@@ -34,23 +40,7 @@ public class LinkedinList {
         return result;
     }
 
-    public static ListNode deleteDuplicates(ListNode head) {
-        if(head==null){
-            return null;
-        }
-        ListNode temp = new ListNode(head.val);
-        ListNode result = temp;
-        while(head.next!=null){
-            System.out.println("result.val:"+temp.val+"  head.next.val"+head.next.val);
-            if(temp.val != head.next.val){
-                temp.next = new ListNode(head.next.val);
-                temp = temp.next;
-            }
-            head.next = head.next.next;
-        }
-        return result;
-    }
-    public static boolean hasCycle(ListNode head) {
+    public boolean hasCycle(ListNode head) {
 
         if(head==null || head.next==null)
             return false;
@@ -95,46 +85,25 @@ public class LinkedinList {
             return null;
         }
 
-        ListNode node = head,
+        ListNode curr = head,
                 prev = null,
                 reversed = null;
 
-        while (node != null) {
-            ListNode next = node.next;
+        while (curr != null) {
+            ListNode next = curr.next;
 
-            if (node.next == null) {
-                reversed = node;
+            if (curr.next == null) {
+                reversed = curr;
             }
-            node.next = prev;
-            prev = node;
-            node = next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
 
         return reversed;
     }
 
-    public static ListNode reverseList2(ListNode head) {
-        if (head == null) {
-            return null;
-        }
-        ListNode node = head,
-                prev = null,
-                reversed = null;
-
-        while (node != null) {
-            ListNode next = node.next;
-
-            if (node.next == null) {
-                reversed = node;
-            }
-            node.next = prev;
-            prev = node;
-            node = next;
-        }
-        return reversed;
-    }
-
-    public static boolean isPalindrome(ListNode head) {
+    public boolean isPalindrome(ListNode head) {
         if(head==null){
             return false;
         }
@@ -153,7 +122,7 @@ public class LinkedinList {
         return true;
     }
 
-    public static boolean isPalindrome2(ListNode head) {
+    public boolean isPalindrome2(ListNode head) {
             if(head==null){
                 return false;
             }
@@ -182,7 +151,7 @@ public class LinkedinList {
             return true;
     }
 
-    public static void printNode(ListNode node){
+    public void printNode(ListNode node){
        while(node!=null){
            System.out.print(node.val);
            node = node.next;
@@ -190,16 +159,62 @@ public class LinkedinList {
                System.out.print("->");
            }
        }
+        System.out.println("");
     }
 
-    public static void main(String[] args) {
-            ListNode temp = new ListNode(1);
-            temp.next =  new ListNode(0);
-            temp.next.next =  new ListNode(1);
-//            temp.next.next.next =  new ListNode(1);
-//            temp.next.next.next.next =  new ListNode(1);
-//            temp.next.next.next.next.next.next = new ListNode(6);
-//            printNode( isPalindrome(temp));
-        System.out.println(isPalindrome2(temp));
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if(list1 == null) return list2;
+        if(list2 == null) return list1;
+
+        if (list1.val <= list2.val) {
+            list1.next = mergeTwoLists(list1.next, list2);
+            return list1;
+        } else {
+            list2.next = mergeTwoLists(list1, list2.next);
+            return list2;
+        }
+
+    }
+
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head == null){
+            return null;
+        }
+       ListNode result = new ListNode();
+        result = head;
+        Set<Integer> check = new HashSet<>();
+        while(head.next!=null){
+            if(!check.contains(head.next.val)){
+                check.add(head.next.val);
+                result.next = head.next;
+                result = deleteDuplicates(result.next);
+            }else{
+                ListNode temp = head.next;
+                result.next = temp.next;
+                result= deleteDuplicates(result.next);
+            }
+        }
+        return result;
+    }
+
+    public static ListNode addlist(int[] arr, int side, ListNode node){
+        if (side < arr.length){
+            ListNode temp = new ListNode(arr[side]);
+            node.next = temp;
+            addlist(arr, side+1, node.next);
+        }
+        return node;
+    }
+
+    public String printNode(ListNode node, String result){
+        if(result.equals("")){
+            result += node.val;
+        }else {
+            result += " -> " + node.val;
+        }
+        if(node.next!=null) {
+            result = printNode(node.next, result);
+        }
+        return result;
     }
 }
